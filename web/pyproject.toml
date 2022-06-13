@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "web"
+version = "0.1.0"
+description = ""
+authors = ["mbashem <mohammedbasem.patwary@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.0.5"
+django-allauth = "^0.51.0"
+python-dotenv = "^0.20.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+server = "web.scripts:django_run_server"
+django = "web.scripts:django_run_manage"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
