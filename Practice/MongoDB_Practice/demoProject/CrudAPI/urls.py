@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.index),
     #url(r'^course_details$', views.CRUD_API),
     url('course_insert/', views.CRUD_API_Insert),
+    url('course_get/', views.CRUD_API_GET),
 ]

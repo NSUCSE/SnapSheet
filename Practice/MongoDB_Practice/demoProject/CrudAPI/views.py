@@ -1,3 +1,4 @@
+from bson import json_util
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,7 +11,7 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework.permissions import AllowAny
 import json
-
+from rest_framework.response import Response
 from .models import CourseDetails
 from .serializers import CourseDetailsSerializer
 
@@ -35,6 +36,8 @@ def index(request):
 #         course_serializer = CourseDetailsSerializer(show_courses_user, many=True)
 #         return JsonResponse(course_serializer.data, safe=False)
 
+import pymongo
+
 
 @api_view(['POST', ])
 @permission_classes([AllowAny])
@@ -43,24 +46,85 @@ def CRUD_API_Insert(request):
     SemesterCode = request.query_params['SemesterCode']
     Section = int(request.query_params['Section'])
     Description = request.query_params['Description']
+    Assessments = request.query_params.getlist('Assessments')
 
+    print(Assessments)
     print(CourseCode)
     print(Section)
+    client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+    mydb = client['DemoDatabase']
+    info = mydb.CourseDetails
 
     JSON_val = {
         "CourseCode": CourseCode,
         "SemesterCode": SemesterCode,
         "Section": Section,
-        "Description": Description
+        "Description": Description,
+        "Assesments":Assessments,
     }
-    json_object = json.dumps(JSON_val)
-    course_serializer = CourseDetailsSerializer(data=json_object)
-    print(course_serializer)
 
-    print(course_serializer.is_valid())
-    if course_serializer.is_valid():
-        course_serializer.save()
-        return JsonResponse("Added Successfully!", safe=False)
-    return JsonResponse("Falied!!!!", safe=False)
+    info.insert_one(JSON_val)
+    return JsonResponse("Added Successfully!", safe=False)
+
+@api_view(['GET', ])
+@permission_classes([AllowAny])
+def CRUD_API_GET(request):
+    CourseCode = request.query_params['CourseCode']
+    client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+    mydb = client['DemoDatabase']
+    info = mydb.CourseDetails
+
+    res = []
+    for records in info.find({"CourseCode":CourseCode}):
+        dict = {}
+        for x in records:
+            if x != "_id":
+                dict[x] = records[x]
+        # print(dict)
+        res.append(dict)
+
+
+    print(res)
+    return Response(res)
+
+
+
 
 #  http://127.0.0.1:8000/CrudAPI/course_insert/?CourseCode=CourseCode&SemesterCode=SemesterCode&Section=Section&Description=Description
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
