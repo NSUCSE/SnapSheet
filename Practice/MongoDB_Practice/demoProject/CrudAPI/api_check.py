@@ -3,6 +3,7 @@ import json
 
 import pymongo
 import requests
+print(pymongo.version)
 
 # URL = "http://127.0.0.1:8000/CrudAPI/course_get/?CourseCode=299"
 # headers = {'content-Type' : 'application/json'}
@@ -12,21 +13,21 @@ import requests
 
 
 
-client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
-mydb = client['DemoDatabase']
-info = mydb.CourseDetails
-list = ["quiz1", "quiz2"]
-
-info.replace_one(
-
-    {"CourseCode":"CSE299"},
-    {
-        "CourseCode": "CSE299.3",
-        "SemesterCode": "SemesterCode",
-        "Section": "Section",
-        "Description": "Description",
-        "Assesments": list,
-
-    }
-
-)
+# client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+# mydb = client['DemoDatabase']
+# info = mydb.CourseDetails
+# list = ["quiz1", "quiz2"]
+#
+# info.replace_one(
+#
+#     {"CourseCode":"CSE299"},
+#     {
+#         "CourseCode": "CSE299.3",
+#         "SemesterCode": "SemesterCode",
+#         "Section": "Section",
+#         "Description": "Description",
+#         "Assesments": list,
+#
+#     }
+#
+# )
