@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'rest_framework',
     'corsheaders',
+    'API',
 ]
 
 MIDDLEWARE = [
@@ -82,13 +83,18 @@ WSGI_APPLICATION = 'project_root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'SnapSheetDB',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'SnapSheetDB',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
