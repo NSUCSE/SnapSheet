@@ -144,6 +144,11 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        "APP": {
+            "client_id": "929445193196-i10lnio3bchmjp5bhc1ads8hikrej38s.apps.googleusercontent.com",
+            "secret": "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",
+            "key": ""
+        },
         'SCOPE': [
             'profile',
             'email',
@@ -154,7 +159,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = int(os.getenv("SITE_ID"))
+SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
