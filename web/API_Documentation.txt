@@ -1,0 +1,10 @@
+# URL for inserting or opening a course directory
+http://127.0.0.1:8000/API/course_details_insert/?username=<username>&email=<email>&CourseCode=<CourseCode>&SemesterCode=<SemesterCode>&Section=<Section>&Description=<Description>
+
+
+# URL for adding an assessment in a course directory
+http://127.0.0.1:8000/API/Add_Assessment/?username=<username>&email=<email>&CourseCode=<CourseCode>&SemesterCode=<SemesterCode>&Section=<Section>&Description=<Description>&Assessments=<AssessmentName>
+
+
+# URL for getting all the directories created by an user
+http://127.0.0.1:8000/API/Get_Users_Courses/?username=<username>
