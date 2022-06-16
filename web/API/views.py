@@ -23,6 +23,7 @@ def Insert_Course_Details(request):
     SemesterCode = request.query_params['SemesterCode']
     Section = int(request.query_params['Section'])
     Description = request.query_params['Description']
+    SheetLink = request.query_params['SheetLink']
     Assessments = request.query_params.getlist('Assessments')
 
     print(Assessments)
@@ -55,6 +56,7 @@ def Insert_Course_Details(request):
             "Section": Section,
             "Description": Description,
             "Assessments": Assessments,
+            "SheetLink": SheetLink,
         }
         collections.insert_one(course_val)
         return JsonResponse({"msg": "Added Successfully!"}, safe=False)
@@ -72,7 +74,9 @@ def Add_Assessment(request):
     SemesterCode = request.query_params['SemesterCode']
     Section = int(request.query_params['Section'])
     Description = request.query_params['Description']
+    SheetLink = request.query_params['SheetLink']
     Assessments = request.query_params['Assessments']
+    print(SheetLink)
 
     print(username)
     print(CourseCode)
@@ -114,7 +118,7 @@ def Add_Assessment(request):
             "Section": Section,
             "Descriptions": Description,
             "Assessments": list,
-
+            "SheetLink": SheetLink,
         }
 
     )
