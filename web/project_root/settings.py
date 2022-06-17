@@ -130,7 +130,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -145,8 +148,8 @@ AUTHENTICATION_BACKENDS = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         "APP": {
-            "client_id": "929445193196-i10lnio3bchmjp5bhc1ads8hikrej38s.apps.googleusercontent.com",
-            "secret": "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",
+            "client_id": "256811478016-scsqoag32c2v1li2tqgav8kb50hkn6pv.apps.googleusercontent.com",
+            "secret": "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",
             "key": ""
         },
         'SCOPE': [
@@ -159,7 +162,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 1
+SITE_ID = 3
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
