@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{% load socialaccount %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      
+      <h1 class="logo"><a href="#">KHOJ<span>.</span></a></h1>
+      
+      <nav id="navbar" class="navbar">
+        
+        <ul>
+          <li><a class="nav-link scrollto active" href="#"> Home</a></li>
+       
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        
+      </nav><!-- .navbar -->
+      
+    </div>
+  </header><!-- End Header -->
+  
+  <body>
+      
+      
+    <!-- ======= Hero Section ======= -->
+    
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container" data-aos="zoom-out" data-aos-delay="100">
+          <h1>Welcome to <span>KHOJ</span></h1>
+          
+
+          {% if user.is_authenticated %}
+          <p> You are logged in as {{ user.username }}</p>
+          
+          <div class="d-flex">
+            
+        
+            <a href="{% url 'logout' %}" class="btn-get-started scrollto">logout</a> 
+          </div>             
+          
+          {% else %}
+          
+        
+          <p> You are not logged in </p>
+          
+          <div class="d-flex">
+          
+            <a href="{% provider_login_url 'google' %}" class="btn-get-started scrollto">login</a> 
+            
+          </div>
+          
+          {% endif %}
+        
+      </div>
+      
+      
+    </section>  <!-- End Hero --> <br> <br>
+
+
+     <h2 align="center"> Here are the lists of your Search results! </h2> <br> <br> <br>
+     
+    
+    <div class = "container" align="align-items-center">
+                <table class="table table-bordered">
+            <thead>
+                    <tr>
+                    
+                    <th scope="col">Text</th>
+                    <th scope="col">URL</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for key, value in msg.items%}
+                    <tr>
+                    
+                    
+                    <td>  {{ key }} </td> 
+                    <td>  <a href={{value}} target="_blank"> {{value}}</a> </td>
+
+                
+                    </tr>
+                    
+                      {% empty %}
+
+                      <tr><td colspan="2" align= "center"> No search results.</td></tr>
+
+                    {% endfor %}
+            </tbody>
+            
+
+            </table>
+    
+            {% endblock %} 
+
+        </div>  
+
+<br> <br>
+
+</body>
+
+</html>
