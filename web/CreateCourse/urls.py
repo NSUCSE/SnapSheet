@@ -16,18 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include, re_path
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LogoutView
+from .views import *
+from . import views
+from django.urls import path
 
-from project_root import views
+
+
 
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view(), name="logout"),
-    path('API/', include('API.urls')),
-    re_path('AddAssessment/', views.add_assessments),
-    re_path('delete_course/', views.delete_course),
-    path('AddCourse/', include('CreateCourse.urls')),
+    # re_path('dash/', include('project_root.urls')),
+    re_path('addCourse/', views.addCourse),
+
+
 ]
