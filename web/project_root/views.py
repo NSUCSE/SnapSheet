@@ -19,7 +19,6 @@ def index(request):
 
 
 def add_assessments(request):
-
     username = request.POST.get("user_name")
     email = request.POST.get("email")
     course_code = request.POST.get("course_code")
@@ -39,6 +38,7 @@ def add_assessments(request):
 
     URL = "http://127.0.0.1:8000/API/Add_Assessment/?username=" + username + "&email=" + email + "&CourseCode=" + course_code + "&SemesterCode=" + semester_code + "&Section=" + section + "&Description=" + description + "&Assessments=" + assessments + "&SheetLink=" + sheet_link
     headers = {'content-Type': 'application/json'}
+    print(URL)
     r = requests.post(url=URL, headers=headers)
     data = r.json()
     print(data)
@@ -53,9 +53,7 @@ def delete_course(request):
     course_code = request.POST.get("course_code")
     semester_code = request.POST.get("semester_code")
     section = request.POST.get("section")
-    section = str(section)
-    print(type(section))
-    
+    section = str(section)    
 
 
     URL = "http://127.0.0.1:8000/API/delete_course/?username=" + username + "&email=" + email + "&CourseCode=" + course_code + "&SemesterCode=" + semester_code + "&Section=" + section

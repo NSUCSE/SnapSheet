@@ -39,7 +39,7 @@
                     <div class="badge" style="color:red;"> <span>Section {{result.Section}}</span> </div>
                 </div>
                 <div class="mt-2">
-                    <h3 class="heading">{{result.Descriptions}}</h3>
+                    <h3 class="heading">{{result.Description}}</h3>
                     <h7> <a href={{result.SheetLink}}> Google Sheet Link  </a></h7> <br> <br>
                     <div class="badge"> <h5> Created Assessments </h5> </div>
                     <div>
@@ -58,25 +58,25 @@
                     </div>
                     <hr>
                     <form method="post" action="AddAssessment/"> {% csrf_token %}
-                        <input type="hidden" name="user_name" value={{result.Username}}>
-                        <input type="hidden" name="email" value={{result.Email}}>
-                        <input type="hidden" name="course_code" value={{result.CourseCode}}>
-                        <input type="hidden" name="semester_code" value={{result.SemesterCode}}>
-                        <input type="hidden" name="section" value={{result.Section}}>
-                        <input type="hidden" name="description" value={{result.Descriptions}}>
-                        <input type="hidden" name="sheet_link" value={{result.SheetLink}}>
+                        <input type="hidden" name="user_name" value='{{result.Username}}'>
+                        <input type="hidden" name="email" value='{{result.Email}}'>
+                        <input type="hidden" name="course_code" value='{{result.CourseCode}}'>
+                        <input type="hidden" name="semester_code" value='{{result.SemesterCode}}'>
+                        <input type="hidden" name="section" value='{{result.Section}}'>
+                        <input type="hidden" name="description" value='{{result.Descriptions}}'>
+                        <input type="hidden" name="sheet_link" value='{{result.SheetLink}}'>
 
                         <label for="Adding Assessments"> <b> Add an Assessment </b> </label>
                         <input type="text" class="form-control" name="assessment" placeholder="Enter Assessment Name"> <br>
-                        <input type="submit" value="Add" class="btn btn-success btn-block">
+                        <input type="submit"  value="Add" class="btn btn-success btn-block">
                     </form>
                     <hr>
                     <form method="post" action="delete_course/"> {% csrf_token %}
-                        <input type="hidden" name="user_name" value={{result.Username}}>
-                        <input type="hidden" name="email" value={{result.Email}}>
-                        <input type="hidden" name="course_code" value={{result.CourseCode}}>
-                        <input type="hidden" name="semester_code" value={{result.SemesterCode}}>
-                        <input type="hidden" name="section" value={{result.Section}}>
+                        <input type="hidden" name="user_name" value='{{result.Username}}'>
+                        <input type="hidden" name="email" value='{{ result.Email }}'>
+                        <input type="hidden" name="course_code" value= '{{result.CourseCode}}' >
+                        <input type="hidden" name="semester_code" value='{{result.SemesterCode}}'>
+                        <input type="hidden" name="section" value='{{result.Section}}'>
                         <input type="submit" value="Delete Course" class="btn btn-success btn-block">
                     </form>
 
