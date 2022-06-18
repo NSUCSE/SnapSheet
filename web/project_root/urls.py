@@ -25,6 +25,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('logout', LogoutView.as_view()),
+    path('logout', LogoutView.as_view(), name="logout"),
     path('API/', include('API.urls')),
 ]
