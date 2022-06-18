@@ -15,17 +15,9 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href=" ">KHOJ<span>.</span></a></h1>
+      <h1 class="logo"><a href=" ">SnapSheet<span>.</span></a></h1>
 
-      <nav id="navbar" class="navbar">
 
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero"> Home</a></li>
-          <li><a class="nav-link scrollto" href="CreateClusters/">Create Cluster</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-
-      </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
@@ -36,7 +28,7 @@
 
     <section id="hero" class="d-flex align-items-center">
       <div class="container" data-aos="zoom-out" data-aos-delay="100">
-          <h1>Welcome to <span>KHOJ</span></h1>
+          <h1>Welcome to <span> SnapSheet </span></h1>
 
 
           {% if user.is_authenticated %}
@@ -71,76 +63,11 @@
     <div class = "container" align="align-items-center">
       {% if user.is_authenticated %}
       <br>
-      <form action="SearchResults/" method="post" > {% csrf_token %}
-        <div class="container justify-content-center" align="center">
-          <div class="row"  align="center">
-            <div class="col-md-8" align="center">
-
-                <div class="input-group mb-3"> <input type="text" class="form-control input-text" name="search_text" placeholder="Select clusters from the table below and search anything" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                  <div class="input-group-append"> <input type="submit" value="Search" class="btn btn-info btn-block rounded-0 py-2"> </div>
-                </div>
-
-            </div>
-          </div>
-        </div> <br> <br>
-
-
-        <h2 align="center"> Here are the lists of your Clusters! </h2> <br> <br> <br>
-
-
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-
-                <th scope="col">Cluster Name</th>
-                <th scope="col">Depth</th>
-                {% comment %}<th scope="col">Ready to Search</th>{% endcomment %}
-                <th scope="col">Select Clusters</th>
-
-              </tr>
-            </thead>
-            <tbody>
-
-              {% for result in Query %}
-
-              <tr>
-
-                <td> {{result.0}}  {% with name=result.0 %}  </td>
-                <td> {{result.1}}  <input type="hidden" name="depth" value={{result.1}}> </td>
-
-                {% comment %} <td>
-                  {%if not result.2%}
-
-                  <i class="fas fa-times"></i>
-
-                  {% else %}
-                  <i class="fas fa-check-square"></i>
-
-                  {% endif %}{% endcomment %}
-
-                </td>
-
-                <td> <input type="checkbox" id="select-cluster" name="selected_cluster" value="{{name}}" > {% endwith %} </td>
-
-              </tr>
-
-              <input type="hidden" name="user_name" value={{user.username}}>
-
-                {% empty %}
-
-              <tr><td colspan="4" align= "center"> You have not created any search clusters yet.</td></tr>
-
-              {% endfor %}
-
-            </tbody>
-
-          </table>
-
-      </form>
+      <h2 align="center"> Go to Dashboard to View and Create Courses </h2>
 
       {% else %}
 
-      <h2 align="center">  Log in to view and create search clusters!  </h2>
+      <h2 align="center">  Log in to view and create Courses!  </h2>
 
       {% endif %}
 

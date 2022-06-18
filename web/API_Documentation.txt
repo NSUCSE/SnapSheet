@@ -8,3 +8,7 @@ http://127.0.0.1:8000/API/Add_Assessment/?username=<username>&email=<email>&Cour
 
 # URL for getting all the directories created by an user
 http://127.0.0.1:8000/API/Get_Users_Courses/?username=<username>
+
+
+# URL for deleting a course
+http://127.0.0.1:8000/API/delete_course/?username=<username>&email=<email>&CourseCode=<CourseCode>&SemesterCode=<SemesterCode>&Section=<Section>

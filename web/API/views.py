@@ -59,8 +59,8 @@ def Insert_Course_Details(request):
             "SheetLink": SheetLink,
         }
         collections.insert_one(course_val)
-        return JsonResponse({"msg": "Added Successfully!"}, safe=False)
-    return JsonResponse({"msg": "Same course already exists!"}, safe=False)
+        return JsonResponse({"msgs": "Added Successfully!"}, safe=False)
+    return JsonResponse({"msgs": "Same course already exists!"}, safe=False)
 
 
 
@@ -125,6 +125,34 @@ def Add_Assessment(request):
     return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
 
 
+
+
+@api_view(['POST', ])
+@permission_classes([AllowAny])
+def delete_course(request):
+    username = request.query_params['username']
+    email = request.query_params['email']
+    CourseCode = request.query_params['CourseCode']
+    SemesterCode = request.query_params['SemesterCode']
+    Section = int(request.query_params['Section'])
+
+    try:
+        client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+        mydb = client['SnapSheetDB']
+        collections = mydb['CourseDetails']
+    except:
+        return JsonResponse({"msg": "DB Connection Failed!"}, safe=False)
+
+    delete_document = {
+        "Username": username,
+        "Email": email,
+        "CourseCode": CourseCode,
+        "SemesterCode": SemesterCode,
+        "Section": Section,
+    }
+
+    collections.delete_one(delete_document)
+    return JsonResponse({"msg": "Courses Deleted Successfully!"}, safe=False)
 
 
 
