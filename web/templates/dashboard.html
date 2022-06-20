@@ -40,7 +40,7 @@
                 </div>
                 <div class="mt-2">
                     <h3 class="heading">{{result.Description}}</h3>
-                    <h7> <a href={{result.SheetLink}}> Google Sheet Link  </a></h7> <br> <br>
+                    <h7> <a href='{{result.SheetLink}}'> Google Sheet Link  </a></h7> <br> <br>
                     <div class="badge"> <h5> Created Assessments </h5> </div>
                     <div>
                         {%if not result.Assessments%}
@@ -63,7 +63,7 @@
                         <input type="hidden" name="course_code" value='{{result.CourseCode}}'>
                         <input type="hidden" name="semester_code" value='{{result.SemesterCode}}'>
                         <input type="hidden" name="section" value='{{result.Section}}'>
-                        <input type="hidden" name="description" value='{{result.Descriptions}}'>
+                        <input type="hidden" name="description" value='{{result.Description}}'>
                         <input type="hidden" name="sheet_link" value='{{result.SheetLink}}'>
 
                         <label for="Adding Assessments"> <b> Add an Assessment </b> </label>
