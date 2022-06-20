@@ -34,6 +34,7 @@ def add_assessments(request):
     print(semester_code)
     print(assessments)
     print(sheet_link)
+    print(description)
     print(section)
 
     URL = "http://127.0.0.1:8000/API/Add_Assessment/?username=" + username + "&email=" + email + "&CourseCode=" + course_code + "&SemesterCode=" + semester_code + "&Section=" + section + "&Description=" + description + "&Assessments=" + assessments + "&SheetLink=" + sheet_link

@@ -116,7 +116,7 @@ def Add_Assessment(request):
             "CourseCode": CourseCode,
             "SemesterCode": SemesterCode,
             "Section": Section,
-            "Descriptions": Description,
+            "Description": Description,
             "Assessments": list,
             "SheetLink": SheetLink,
         }
@@ -184,6 +184,43 @@ def Get_Users_Courses(request):
 
 
 
+#api for verifying a user for android version login
+@api_view()
+@permission_classes([AllowAny])
+def verify_user(request):
+    id_token = request.query_params['id_token']
+
+    try:
+        client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+        mydb = client['SnapSheetDB']
+        collections = mydb['CourseDetails']
+    except:
+        return Response({"msg": "DB Connection Failed!"}, safe=False)
+
+    try:
+        URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=' + id_token
+        headers = {'content-Type': 'application/json'}
+        r = requests.get(url=URL, headers=headers)
+        data = r.json()
+        print(data)
+        user_email = data['email']
+        print(user_email)
+
+        is_same_file_exists = {
+            "Email": user_email,
+        }
+        val = collections.find_one(is_same_file_exists)
+        print(val)
+
+        if val is not None:
+            user_name = val['Username']
+            print(user_name)
+            values = {'status': "OK", "username": user_name}
+            return Response({'status' : 'OK', 'username' : user_name})
+        return Response({'status':'Failed!'})
+
+    except:
+        return Response({'status': 'FAILED'})
 
 
 
