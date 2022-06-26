@@ -46,6 +46,3 @@ def addCourse(request):
 
 
 
-def get_sheet_id(request, url):
-    res = url.split("/")
-    return res[5]
