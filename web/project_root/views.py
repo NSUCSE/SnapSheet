@@ -2,6 +2,18 @@ from django.contrib.sites import requests
 from django.shortcuts import render
 import requests
 from django.shortcuts import redirect
+import pymongo
+from django.shortcuts import render
+
+from django.http import HttpResponse
+import requests
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
+from rest_framework.permissions import AllowAny
+import json
+from rest_framework.response import Response
 
 
 def index(request):
@@ -16,6 +28,16 @@ def index(request):
     else:
         params = {'msg': 'Login to view your courses!'}
         return render(request, 'index.html', params)
+
+
+def authenticate_user(username):
+    print(username)
+    print("User name is -----> ")
+    print(request.user.username)
+    if request.user.is_authenticated == False or request.user.username != username:
+        return False
+    return True
+
 
 
 def add_assessments(request):

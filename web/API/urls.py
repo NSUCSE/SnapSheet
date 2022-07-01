@@ -9,4 +9,5 @@ urlpatterns = [
     re_path('Get_Users_Courses/', views.Get_Users_Courses),
     re_path('delete_course/', views.delete_course),
     re_path('verify_user/', views.verify_user),
+    re_path('update_google_sheet/', views.update_google_sheet),
 ]

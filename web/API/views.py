@@ -2,7 +2,7 @@ import pymongo
 from django.shortcuts import render
 
 # Create your views here.
-
+from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
 import requests
 from django.views.decorators.csrf import csrf_exempt
@@ -12,6 +12,7 @@ from django.http.response import JsonResponse
 from rest_framework.permissions import AllowAny
 import json
 from rest_framework.response import Response
+from project_root.views import *
 
 
 @api_view(['POST', ])
@@ -223,5 +224,47 @@ def verify_user(request):
         return Response({'status': 'FAILED'})
 
 
+
+
+@api_view(['GET', ])
+@permission_classes([IsAuthenticated])
+def update_google_sheet(request):
+
+    username = request.query_params['username']
+    student_id = request.query_params['student_id']
+    CourseCode = request.query_params['CourseCode']
+    SemesterCode = request.query_params['SemesterCode']
+    Section = int(request.query_params['Section'])
+    assessment_name = request.query_params['Assessment']
+    marks = request.query_params['Marks']
+
+    print(username)
+    print(CourseCode)
+    print(SemesterCode)
+    print(Section)
+    print(assessment_name)
+
+    try:
+        client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
+        mydb = client['SnapSheetDB']
+        collections = mydb['CourseDetails']
+    except:
+        return JsonResponse({"msg": "DB Connection Failed!"}, safe=False)
+
+    is_the_file_exists = {
+        "Username": username,
+        "CourseCode": CourseCode,
+        "SemesterCode": SemesterCode,
+        "Section": Section,
+    }
+    val = collections.find_one(is_the_file_exists)
+    print(val)
+    if val is None:
+        return Response({'msg':'No such course found!'})
+    sheet_url = val["SheetLink"]
+    if sheet_url is None:
+        return Response({'msg':'No Url Found!'})
+
+    return Response({'msg':'Sheet updated successfully'})
 
 
