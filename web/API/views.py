@@ -87,8 +87,11 @@ def Add_Assessment(request):
     sheet_id = get_sheet_id(SheetLink)
     print(sheet_id)
 
-    # print(username)
-    # print(CourseCode)
+    res = add_assessment(sheet_id, Assessments)
+
+    if res != "":
+        return JsonResponse({"msg": "Same Assessment already created!"}, safe=False)
+
 
     try:
         client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
@@ -132,13 +135,7 @@ def Add_Assessment(request):
 
     )
 
-    res = add_assessment(sheet_id, Assessments)
-    print("add assessment msg ---> ")
-    print(res)
-    if res == "":
-        return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
-    else:
-        return JsonResponse({"msg": "Same Assessment already created"}, safe=False)
+    return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
 
 
 
