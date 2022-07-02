@@ -14,6 +14,7 @@ import json
 from rest_framework.response import Response
 from project_root.views import *
 from sheets.add_assessment import add_assessment
+from sheets.add_mark import add_mark
 
 def get_sheet_id(url):
     res = url.split("/")
@@ -134,7 +135,10 @@ def Add_Assessment(request):
     res = add_assessment(sheet_id, Assessments)
     print("add assessment msg ---> ")
     print(res)
-    return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
+    if res == "":
+        return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
+    else:
+        return JsonResponse({"msg": "Same Assessment already created"}, safe=False)
 
 
 
@@ -277,7 +281,10 @@ def update_google_sheet(request):
         return Response({'msg':'No Url Found!'})
     sheet_id = get_sheet_id(sheet_url)
     print(sheet_id)
-
-    return Response({'msg':'Sheet updated successfully'})
-
-
+    res = add_mark(sheet_id, assessment_name, student_id, marks)
+    if res == "Error: Assesment Doesn't Exists!":
+        return Response({'msg': 'No Such Assessment Exist! Please Create an Assessment!'})
+    elif res == "Error: Student Doesn't Exists!":
+        return Response({'msg': 'No Such Student Exist! Please Enter the Student ID in the Sheet!'})
+    elif res == "":
+        return Response({'msg': 'Mark Updated Successfully!'})
