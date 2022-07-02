@@ -13,6 +13,11 @@ from rest_framework.permissions import AllowAny
 import json
 from rest_framework.response import Response
 from project_root.views import *
+from sheets.add_assessment import add_assessment
+
+def get_sheet_id(url):
+    res = url.split("/")
+    return res[5]
 
 
 @api_view(['POST', ])
@@ -78,9 +83,11 @@ def Add_Assessment(request):
     SheetLink = request.query_params['SheetLink']
     Assessments = request.query_params['Assessments']
     print(SheetLink)
+    sheet_id = get_sheet_id(SheetLink)
+    print(sheet_id)
 
-    print(username)
-    print(CourseCode)
+    # print(username)
+    # print(CourseCode)
 
     try:
         client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
@@ -100,7 +107,7 @@ def Add_Assessment(request):
     print(val)
     list = val["Assessments"]
     list.append(Assessments)
-    print(list)
+    # print(list)
 
     collections.replace_one(
 
@@ -123,6 +130,10 @@ def Add_Assessment(request):
         }
 
     )
+
+    res = add_assessment(sheet_id, Assessments)
+    print("add assessment msg ---> ")
+    print(res)
     return JsonResponse({"msg": "Assessment Added Successfully!"}, safe=False)
 
 
@@ -225,7 +236,6 @@ def verify_user(request):
 
 
 
-
 @api_view(['GET', ])
 @permission_classes([IsAuthenticated])
 def update_google_sheet(request):
@@ -262,8 +272,11 @@ def update_google_sheet(request):
     if val is None:
         return Response({'msg':'No such course found!'})
     sheet_url = val["SheetLink"]
+    print(sheet_url)
     if sheet_url is None:
         return Response({'msg':'No Url Found!'})
+    sheet_id = get_sheet_id(sheet_url)
+    print(sheet_id)
 
     return Response({'msg':'Sheet updated successfully'})
 
