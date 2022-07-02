@@ -19,7 +19,7 @@ def add_mark(spreadsheet_id: str, assesment: str, std_id: int, mark: int) -> str
     if(all_std.count(id) == 0):
       return "Error: Student Doesn't Exists!"
     range_col = int_to_col(all_ass.index(assesment)+2)
-    range_row = str(all_std.index(id)+1)
+    range_row = str(all_std.index(id)+2)
     range = range_col+range_row
     update_value(spreadsheet_id,range+":"+range,mark)
     return ""
