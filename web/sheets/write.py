@@ -1,6 +1,6 @@
 from __future__ import print_function
 from errno import EROFS
-
+import os
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -14,7 +14,9 @@ def update_value(spreadsheet_id, range_name,value):
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
         """
-    creds,_ = google.auth.load_credentials_from_file("keys.json",scopes=SCOPES)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print(dir_path)
+    creds,_ = google.auth.load_credentials_from_file(dir_path + "\keys.json",scopes=SCOPES)
     value_input_option = "USER_ENTERED"
     # pylint: disable=maybe-no-member
     service = build('sheets', 'v4', credentials=creds)

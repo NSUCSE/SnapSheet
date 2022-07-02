@@ -1,5 +1,5 @@
 from __future__ import print_function
-
+import os
 from Utils.utils import get_sheet_id
 import google.auth
 from googleapiclient.discovery import build
@@ -14,7 +14,9 @@ def get_values(spreadsheet_id, range_name):
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
         """
-    creds,_ = google.auth.load_credentials_from_file("keys.json",scopes=SCOPES)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print(dir_path)
+    creds,_ = google.auth.load_credentials_from_file(dir_path + "\keys.json",scopes=SCOPES)
     # pylint: disable=maybe-no-member
     service = build('sheets', 'v4', credentials=creds)
 
