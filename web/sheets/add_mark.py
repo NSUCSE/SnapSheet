@@ -26,4 +26,4 @@ def add_mark(spreadsheet_id: str, assesment: str, std_id: int, mark: int) -> str
   except Exception as e:
     return repr(e)
 
-print(add_mark("1YW-xAqLd4Bc-ImFkCql81ZsA4Zp6xKHOM3Y9uedDv6E","Test 1", 5, 5))
+# print(add_mark("1YW-xAqLd4Bc-ImFkCql81ZsA4Zp6xKHOM3Y9uedDv6E","Test 1", 5, 5))
