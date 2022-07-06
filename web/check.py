@@ -16,8 +16,13 @@
 # res = url.split("/")
 #
 # print(res[5])
+#
+# def get_sheet_url(request, url):
+#     res = url.split("/")
+#     return res[5]
 
-def get_sheet_url(request, url):
-    res = url.split("/")
-    return res[5]
 
+from sheets.add_assessment import add_assessment
+
+res  = add_assessment('1BWjjKb45_QX77G5fPrdpDO46oe35G90QimBAZ5eVV_g', 'Quiz 2')
+print(res)

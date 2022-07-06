@@ -38,7 +38,9 @@ def authenticate_user(username):
         return False
     return True
 
-
+def get_sheet_id(url):
+    res = url.split("/")
+    return res[5]
 
 def add_assessments(request):
     username = request.POST.get("user_name")
@@ -50,14 +52,15 @@ def add_assessments(request):
     assessments = request.POST.get("assessment")
     sheet_link = request.POST.get("sheet_link")
 
-    print(username)
-    print(email)
-    print(course_code)
-    print(semester_code)
-    print(assessments)
-    print(sheet_link)
-    print(description)
-    print(section)
+
+    # print(username)
+    # print(email)
+    # print(course_code)
+    # print(semester_code)
+    # print(assessments)
+    # print(sheet_link)
+    # print(description)
+    # print(section)
 
     URL = "http://127.0.0.1:8000/API/Add_Assessment/?username=" + username + "&email=" + email + "&CourseCode=" + course_code + "&SemesterCode=" + semester_code + "&Section=" + section + "&Description=" + description + "&Assessments=" + assessments + "&SheetLink=" + sheet_link
     headers = {'content-Type': 'application/json'}
@@ -66,6 +69,7 @@ def add_assessments(request):
     data = r.json()
     print(data)
     params = {'Query': data}
+
     # return render(request, 'index.html', params)
     return redirect('/')
 
