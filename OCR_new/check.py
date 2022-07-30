@@ -37,13 +37,13 @@ def process(json_string):
 
 url = "https://api.apilayer.com/image_to_text/upload"
 
-f = open("handwriting17.jpg","rb")
+f = open("10.jpeg","rb")
 file_content = f.read()
 
 
 payload = file_content
 headers= {
-  "apikey": "xNe85ZKCeaW6PJlJcSfMFYadvwzPxFnn"
+  "apikey": "zKUDgNqXzMAXimDjNMbSRuXxNCr6zpGx"
 }
 
 response = requests.request("POST", url, headers=headers, data = payload)
