@@ -111,7 +111,7 @@ def Add_Assessment(request):
     print(val)
     list = val["Assessments"]
     list.append(Assessments)
-    # print(list)
+    print(list)
 
     collections.replace_one(
 
