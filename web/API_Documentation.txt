@@ -13,3 +13,6 @@ http://127.0.0.1:8000/API/delete_course/?username=<username>&email=<email>&Cours
 
 # URL for user authentication for android version
 http://127.0.0.1:8000/API/verify_user/?id_token=<id_token from google oauth>
+
+# URL for updating google sheet
+http://127.0.0.1:8000/API/update_google_sheet/?username=<username>&student_id=<studentid>&CourseCode=<CourseCode>&SemesterCode=<SemesterCode>&Section=<Section>&Marks=<Marks>&Assessment=<AssessmentName>
