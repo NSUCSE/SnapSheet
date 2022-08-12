@@ -37,7 +37,7 @@ def process(json_string):
 
 url = "https://api.apilayer.com/image_to_text/upload"
 
-f = open("10.jpeg","rb")
+f = open("2.jpeg","rb")
 file_content = f.read()
 
 
