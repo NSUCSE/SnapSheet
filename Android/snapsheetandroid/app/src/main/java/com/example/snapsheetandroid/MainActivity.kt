@@ -2,6 +2,7 @@ package com.example.snapsheetandroid
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -26,107 +28,95 @@ import java.util.*
 import java.util.jar.Manifest
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+
+
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.common.api.ApiException
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
-
-    val REQUEST_IMAGE_CAPTURE = 1
-    lateinit var currentPhotoPath: String
-    lateinit var imageView: ImageView
-
-    var photoFile: File? = null
-
-
+    val RC_SIGN_IN = 5
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.sign_in)
 
-        val click = findViewById<Button>(R.id.click)
-        click.setOnClickListener(){
-            dispatchTakePictureIntent()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("1051132029790-i1ppjir19u8tbj784n6u8f18gkn2a1kd.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        val sign_in_button = findViewById<SignInButton>(R.id.sign_in_button)
+
+        sign_in_button.setOnClickListener(){
+            val signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
         }
 
-        imageView = findViewById<ImageView>(R.id.imageView)
+
+
+
+
+
 
     }
-
-
-
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val imageFileName = "SnapSheet_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val image = File.createTempFile(
-            imageFileName, /* prefix */
-            ".jpg", /* suffix */
-            storageDir      /* directory */
-        )
-
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.absolutePath
-        return image
-    }
-
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                // Create the File where the photo should go
-                 photoFile = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    // Error occurred while creating the File
-                    null
-                }
-                // Continue only if the File was successfully created
-                photoFile?.also {
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                        this,
-                        "com.example.snapsheetandroid.fileprovider",
-                        it)
-
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-                }
-            }
-        }
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val myBitmap = BitmapFactory.decodeFile(photoFile!!.absolutePath)
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
 
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
 
-            imageView.setImageBitmap(myBitmap)
+            Fuel.get("http://192.168.50.146:8000/API/verify_user/?id_token=" + account.idToken).response(){
+                request, response, result ->
 
+                when(result)
+                {
+                    is Result.Success ->{
+                        Toast.makeText(this,"Login successfull",Toast.LENGTH_LONG).show()
+                        println("Printing response")
+                        Log.d("Response",response.toString())
+                        startActivity(Intent(this,CameraActivity::class.java))
 
-            var bytearray = File(photoFile!!.absolutePath).readBytes()
+                    }
 
-            Fuel.post("https://api.apilayer.com/image_to_text/upload")
-                .header("apikey","jgFVyVpDtd6flOYJ4jxU7OfCRU9ZyQBJ")
-                .body(File(photoFile!!.absolutePath).readBytes())
-                .response { request,response,result ->
-                   when(result)
-                   {
-                       is Result.Success ->{
-                            println(response)
-                       }
-                       is Result.Failure ->{
-                           Toast.makeText(this,"request failed",Toast.LENGTH_LONG).show()
-                       }
-
-                   }
+                    is Result.Failure ->{
+                        Toast.makeText(this,"Login unsuccessfull",Toast.LENGTH_LONG).show()
+                        println(response.toString())
+                    }
                 }
+            }
 
-        } else {
+            // Signed in successfully, show authenticated UI.
+
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
 
         }
     }
+
+
+
 
 
 }
