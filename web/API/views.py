@@ -238,7 +238,7 @@ def verify_user(request):
 
 
 @api_view(['GET', ])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def update_google_sheet(request):
 
     username = request.query_params['username']
