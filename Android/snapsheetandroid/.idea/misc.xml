@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_camera.xml" value="0.36666666666666664" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_course.xml" value="0.25" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_main.xml" value="0.43783068783068785" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/course_layout.xml" value="0.25" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/quiz.xml" value="0.2598958333333333" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/sign_in.xml" value="0.36666666666666664" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/xml/file_paths.xml" value="0.2598958333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
