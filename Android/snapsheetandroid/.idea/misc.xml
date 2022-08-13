@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_camera.xml" value="0.36666666666666664" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_course.xml" value="0.25" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/activity_main.xml" value="0.43783068783068785" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/course_layout.xml" value="0.25" />
+        <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/quiz.xml" value="0.2598958333333333" />
         <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/layout/sign_in.xml" value="0.36666666666666664" />
         <entry key="..\:/Code projects/Android Projects/snapsheetandroid/app/src/main/res/xml/file_paths.xml" value="0.2598958333333333" />
       </map>

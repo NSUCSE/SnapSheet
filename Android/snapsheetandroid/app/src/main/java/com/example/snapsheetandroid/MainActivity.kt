@@ -36,9 +36,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
-
-
-
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -91,10 +90,17 @@ class MainActivity : AppCompatActivity() {
                 when(result)
                 {
                     is Result.Success ->{
-                        Toast.makeText(this,"Login successfull",Toast.LENGTH_LONG).show()
-                        println("Printing response")
+                        Toast.makeText(this,"Login successfull",Toast.LENGTH_SHORT).show()
+                        println("This is response data: " + String(response.data))
+
                         Log.d("Response",response.toString())
-                        startActivity(Intent(this,CameraActivity::class.java))
+                        val json = JSONObject(String(response.data))
+
+
+                        val next_page = Intent(this,CourseActivity::class.java)
+                        next_page.putExtra("username",json.get("username").toString())
+                        next_page.putExtra("email",account.email)
+                        startActivity(next_page)
 
                     }
 
